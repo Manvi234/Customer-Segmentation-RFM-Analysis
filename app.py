@@ -108,6 +108,8 @@ with st.sidebar:
     st.caption("Brazilian E-Commerce · 2016–2018")
     st.divider()
     page = st.radio("Navigate", PAGES, label_visibility="collapsed")
+    st.divider()
+    st.caption("Built by [Manvi Gawande](https://www.linkedin.com/in/manvi-gawande)")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
