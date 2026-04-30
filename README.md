@@ -31,23 +31,82 @@ This dashboard provides high-level business health metrics designed for executiv
 
 ---
 
-### 2. Customer Segmentation (RFM Analysis)
-An advanced marketing analytics model categorizing customers based on:
+## 👥 Customer Segmentation Strategy (RFM Analysis)
 
-- **Recency**
-- **Frequency**
-- **Monetary Value**
+Using a custom-built **RFM (Recency, Frequency, Monetary)** model, the customer base was segmented into five distinct categories to enable targeted marketing strategies and improve retention, engagement, and customer lifetime value.
 
-#### Segments:
-- **Champions:** Loyal, high-spending customers  
-- **At Risk:** Previously high-value but inactive customers  
-- **Hibernating:** Low engagement, low frequency customers  
+### Segments Overview
 
-#### Strategic Actions:
-- Loyalty rewards for Champions  
-- Targeted win-back campaigns for At-Risk users  
-- Cost-efficient re-engagement for Hibernating users  
+| Segment | Customer Count | Description |
+|---------|---------------|-------------|
+| **At Risk** | 22,558 | Previously high-value customers who have become inactive and show churn risk |
+| **Loyal Customers** | 19,307 | Frequent buyers with consistent spending behavior and strong brand affinity |
+| **Hibernating** | 15,880 | Low engagement, low purchase frequency customers who have drifted away |
+| **Champions** | 15,792 | Highest-value customers with strong loyalty, frequency, and spending patterns |
+| **Others** | 22,558 | New or infrequent shoppers currently in early discovery/purchase stages |
 
+---
+
+### 📌 Strategic Business Actions
+
+#### 🔴 At Risk Customers
+- Deploy personalized **win-back campaigns**
+- Offer limited-time discounts such as:
+  - *"We Miss You"* promotions
+  - cart recovery incentives
+  - targeted coupon campaigns  
+
+**Goal:** Prevent churn and reactivate historically valuable users.
+
+---
+
+#### 🟢 Champions
+- Launch premium retention programs:
+  - exclusive early product access
+  - VIP customer support
+  - tiered rewards & loyalty perks  
+
+**Goal:** Maximize Customer Lifetime Value (LTV) and retention.
+
+---
+
+#### 🟡 Loyal Customers
+- Introduce **referral programs** and advocacy incentives  
+- Reward customer referrals with:
+  - store credits
+  - discounts
+  - exclusive perks  
+
+**Goal:** Turn loyal customers into acquisition channels.
+
+---
+
+#### ⚫ Hibernating Customers
+- Run automated low-cost re-engagement flows:
+  - reminder emails
+  - product recommendations
+  - abandoned interest campaigns  
+
+**Goal:** Reactivate users efficiently without high CAC spend.
+
+---
+
+#### 🔵 Others
+- Focus on onboarding and first-purchase conversion:
+  - educational content
+  - welcome offers
+  - first-order discounts  
+
+**Goal:** Move new/infrequent shoppers into the Loyal Customer segment.
+
+---
+
+### 🎯 Business Impact
+This segmentation framework enables:
+- smarter marketing budget allocation  
+- improved retention strategy  
+- reduced churn risk  
+- stronger customer lifetime value optimization  
 ---
 
 ## 🚀 Installation & Local Deployment
