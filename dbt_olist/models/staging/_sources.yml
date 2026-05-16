@@ -1,0 +1,59 @@
+version: 2
+
+sources:
+  - name: olist
+    description: Raw Olist Brazilian E-Commerce tables loaded into BigQuery
+    database: "olist-analytics-496518"
+    schema: olist_raw
+    tables:
+      - name: orders
+        identifier: olist_orders_dataset
+        description: ~99k orders placed between 2016 and 2018
+        columns:
+          - name: order_id
+            tests: [unique, not_null]
+          - name: customer_id
+            tests: [not_null]
+
+      - name: customers
+        identifier: olist_customers_dataset
+        description: Customer records; customer_id is order-scoped, customer_unique_id is person-scoped
+        columns:
+          - name: customer_id
+            tests: [unique, not_null]
+
+      - name: order_items
+        identifier: olist_order_items_dataset
+        columns:
+          - name: order_id
+            tests: [not_null]
+          - name: product_id
+            tests: [not_null]
+
+      - name: order_payments
+        identifier: olist_order_payments_dataset
+        columns:
+          - name: order_id
+            tests: [not_null]
+
+      - name: order_reviews
+        identifier: olist_order_reviews_dataset
+        columns:
+          - name: review_id
+            description: Not unique in source due to quoted-newline reload; deduplicated in stg_order_reviews
+            tests: [not_null]
+
+      - name: products
+        identifier: olist_products_dataset
+        columns:
+          - name: product_id
+            tests: [unique, not_null]
+
+      - name: sellers
+        identifier: olist_sellers_dataset
+        columns:
+          - name: seller_id
+            tests: [unique, not_null]
+
+      - name: category_translation
+        identifier: product_category_name_translation

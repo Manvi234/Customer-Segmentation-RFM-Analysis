@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: int_orders_enriched
+    description: >
+      Orders joined with customers, aggregated payments, and review score.
+      One row per order. Payments are pre-aggregated so downstream models
+      don't have to worry about the multi-row payment structure.
+    columns:
+      - name: order_id
+        tests: [unique, not_null]
+      - name: customer_unique_id
+        tests: [not_null]
+      - name: total_payment_value
+        description: NULL for cancelled/test orders with no payment record
+
+  - name: int_order_items_enriched
+    description: >
+      Order items enriched with product metadata and English category names.
+      One row per order-item pair. COALESCE falls back to Portuguese name
+      for the small number of categories without an English translation.
+    columns:
+      - name: order_id
+        tests: [not_null]
+      - name: product_id
+        tests: [not_null]

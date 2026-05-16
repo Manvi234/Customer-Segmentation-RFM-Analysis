@@ -1,0 +1,79 @@
+version: 2
+
+models:
+  - name: stg_orders
+    description: Cleaned orders with timestamps parsed to TIMESTAMP type
+    columns:
+      - name: order_id
+        tests: [unique, not_null]
+      - name: customer_id
+        tests: [not_null]
+      - name: order_status
+        tests:
+          - accepted_values:
+              arguments:
+                values: [delivered, shipped, canceled, processing, invoiced, unavailable, created, approved]
+
+  - name: stg_customers
+    description: Customer records; customer_id is order-scoped, customer_unique_id is the true person identifier
+    columns:
+      - name: customer_id
+        tests: [unique, not_null]
+      - name: customer_unique_id
+        tests: [not_null]
+
+  - name: stg_order_items
+    description: One row per item within an order; an order can have multiple items
+    columns:
+      - name: order_id
+        tests: [not_null]
+      - name: product_id
+        tests: [not_null]
+      - name: price
+        tests: [not_null]
+
+  - name: stg_order_payments
+    description: Payment records; one order can have multiple payment rows (installments, mixed methods)
+    columns:
+      - name: order_id
+        tests: [not_null]
+      - name: payment_value
+        tests: [not_null]
+      - name: payment_type
+        tests:
+          - accepted_values:
+              arguments:
+                values: [credit_card, boleto, voucher, debit_card, not_defined]
+
+  - name: stg_order_reviews
+    description: Customer reviews; one review per order
+    columns:
+      - name: review_id
+        description: Not unique in source (known Olist data quality issue); deduplicated by review_id+order_id in model
+        tests: [not_null]
+      - name: order_id
+        tests: [not_null]
+      - name: review_score
+        tests:
+          - accepted_values:
+              arguments:
+                values: [1, 2, 3, 4, 5]
+                quote: false
+
+  - name: stg_products
+    description: Product catalogue with dimensions and category
+    columns:
+      - name: product_id
+        tests: [unique, not_null]
+
+  - name: stg_sellers
+    description: Seller registry
+    columns:
+      - name: seller_id
+        tests: [unique, not_null]
+
+  - name: stg_category_translation
+    description: Portuguese → English category name lookup
+    columns:
+      - name: category_name_pt
+        tests: [unique, not_null]

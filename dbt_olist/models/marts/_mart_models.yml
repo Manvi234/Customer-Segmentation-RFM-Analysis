@@ -1,0 +1,67 @@
+version: 2
+
+models:
+  - name: mart_rfm_segments
+    description: >
+      RFM segmentation for all ~96k customers. Single source of truth —
+      replaces the copy-pasted CTE from notebook cells 69 and 80.
+      R/F/M scores are NTILE(5) quintiles; higher = better on all three axes.
+    columns:
+      - name: customer_unique_id
+        tests: [unique, not_null]
+      - name: customer_segment
+        tests:
+          - accepted_values:
+              values: [Champions, Loyal Customers, At Risk, Hibernating, Others]
+      - name: r_score
+        tests:
+          - accepted_values:
+              values: [1, 2, 3, 4, 5]
+              quote: false
+      - name: f_score
+        tests:
+          - accepted_values:
+              values: [1, 2, 3, 4, 5]
+              quote: false
+      - name: m_score
+        tests:
+          - accepted_values:
+              values: [1, 2, 3, 4, 5]
+              quote: false
+
+  - name: mart_cohort_retention
+    description: >
+      Month-over-month cohort retention. Materialized as incremental table;
+      each run only re-processes the last two cohort months.
+      Pivot this in Tableau/Looker for a heatmap (cohort_month x month_index).
+    columns:
+      - name: cohort_month
+        tests: [not_null]
+      - name: month_index
+        tests: [not_null]
+      - name: total_users
+        tests: [not_null]
+
+  - name: mart_customer_lifecycle
+    description: >
+      One row per unique customer. Captures acquisition month, repeat flag,
+      CLV, average order value, days between orders, and churn flag (no purchase
+      in >120 days, based on the ~60-day observed repeat gap).
+    columns:
+      - name: customer_unique_id
+        tests: [unique, not_null]
+      - name: total_orders
+        tests: [not_null]
+      - name: lifetime_value
+        description: NULL for the rare orders with no matching payment record (cancelled/test orders)
+
+  - name: mart_seller_performance
+    description: >
+      Seller leaderboard combining Query 6 (volume/revenue/reviews) and
+      Query 12 (fulfillment speed). Added five_star_rate_pct as a normalized
+      quality metric so high-volume sellers are not unfairly penalised.
+    columns:
+      - name: seller_id
+        tests: [unique, not_null]
+      - name: total_items_sold
+        tests: [not_null]
