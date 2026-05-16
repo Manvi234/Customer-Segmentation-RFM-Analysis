@@ -38,7 +38,7 @@ Tableau Dashboards           RFM, cohort retention, revenue, operations
 ```
 
 ### dbt Lineage Graph
-![Lineage Graph](assets/lineage_graph.png)
+![Lineage Graph](assets/linear_graph.png)
 
 ---
 
